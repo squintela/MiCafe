@@ -1,0 +1,137 @@
+{% extends "@admin/base-form.twig" %}
+
+{% block title %}
+  Gestionar pedido
+{% endblock %}
+
+{% block ctrls %}
+  {% include "@admin/controls/buttons.twig" with {form_id:"frm-pedido", href_add:"pedido.php", href_list:"pedido.php"} %}
+{% endblock %}
+
+{% block header_form %}
+  <strong>Gestionar </strong>pedido
+{% endblock %}
+
+{% block root %}
+  <form action="./pedido.php" method="post" class="" id="frm-pedido">
+    <input type="text" id="id" name="id" value="{{ pedido.getId() }}" hidden>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="codigo" class=" form-control-label">Codigo</label>
+          <input type="text" id="codigo" name="codigo" class="form-control" value="{{ pedido.getCodigo() }}" readonly>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="fecha" class=" form-control-label">Fecha</label>
+          <input type="text" id="fecha" name="fecha" class="form-control" value="{{ pedido.getFecha() | default("now"|date('Y/m/d H:i:s')) }}" readonly>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="monto" class=" form-control-label">Monto</label>
+          <input type="text" id="monto" name="monto" class="form-control" value="{{ pedido.getMonto() }}" readonly>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="tipo_pago">Tipo de pago</label>
+          <select class="form-control" id="tipo_pago" name="tipo_pago">
+            {% for tipo_pago in tipo_pagos %}
+              <option
+                  {% if pedido.getTipoPago() == tipo_pago.id %}
+                    selected="true"
+                  {% endif %}
+                  value="{{ tipo_pago.id }}">{{ tipo_pago.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="estado">Estado</label>
+          <select class="form-control" id="estado" name="estado" {% if pedido.estado == "Pagado" %} disabled {% endif %}>
+            {% for estado in estados %}
+              <option
+                  {% if pedido.getEstado() == estado.id %}
+                    selected="true"
+                  {% endif %}
+                  value="{{ estado.id }}">{{ estado.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="id_empleado">Empleado</label>
+          <select class="form-control" id="id_empleado" name="id_empleado">
+            {% for empleado in empleados %}
+              <option
+                  {% if pedido.getIdEmpleado() == empleado.id %}
+                    selected="true"
+                  {% endif %}
+                  value="{{ empleado.id }}">{{ empleado.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="id_cliente">Cliente</label>
+          <select class="form-control" id="id_cliente" name="id_cliente">
+            {% for cliente in clientes %}
+              <option
+                  {% if pedido.getIdCliente() == cliente.id %}
+                    selected="true"
+                  {% endif %}
+                  value="{{ cliente.id }}">{{ cliente.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    {% if errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ errors }}
+      </div>
+    {% endif %}
+
+    <div class="row">
+      <div class="col-md-4">
+        {% if status and pedido.getEstado != 'Pagado' %}
+          <p>Add orden</p>
+          <a class="btn btn-success" role="button" href="orden.php?option=add&codigo={{ pedido.getCodigo() }}">
+            <i class="fa fa-shopping-cart"></i>
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="col-md-4">
+        {% if status %}
+          <p>Comandas</p>
+          <a class="btn btn-secondary" role="button" href="orden.php?option=list&codigo={{ pedido.getCodigo() }}">
+            <i class="fa fa-address-book"></i>
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="col-md-4">
+        {% if status and pedido.getEstado() == "Pagado" %}
+          <p>Facturar</p>
+          <a class="btn btn-info" role="button" href="factura.php?option=add&id_pedido={{ pedido.getId() }}">
+            <i class="fa fa-address-card"></i>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </form>
+{% endblock %}

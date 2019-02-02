@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Required meta tags-->
+  <!-- Title Page-->
+  <title>{% block title %}{% endblock %}</title>
+  {% block styles %}
+    <!-- Fontfaces CSS-->
+    <link href="./../public/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="./../public/vendor/mdi-font/css/material-design-iconic-font.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="./../public/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="./../public/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+
+    <link href="./../public/vendor/datatables/css/jquery.dataTables.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="./../public/css/theme.css" rel="stylesheet" media="all">
+  {% endblock %}
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- MENU SIDEBAR-->
+  {% include "menu/sidebar.twig" %}
+  <!-- END MENU SIDEBAR-->
+
+  <!-- PAGE CONTAINER-->
+  <div class="page-container">
+    <!-- HEADER DESKTOP-->
+    {% include "menu/header.twig" with { user: user } %}
+    <!-- HEADER DESKTOP-->
+
+    <!-- MAIN CONTENT-->
+    <div class="main-content">
+      <div class="section__content section__content--p30">
+        <div class="container-fluid">
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+    <!-- END MAIN CONTENT-->
+    <!-- END PAGE CONTAINER-->
+  </div>
+
+</div>
+
+{% block js %}
+  <!-- Jquery JS-->
+  <script src="./../public/vendor/jquery-3.2.1.min.js"></script>
+  <!-- Bootstrap JS-->  
+  <script src="./../public/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+  <script src="./../public/vendor/animsition/animsition.min.js"></script>
+  <script src="./../public/vendor/datatables/js/jquery.dataTables.js"></script>
+  <script src="./../public/js/tableModel.js"></script>
+  <!-- Main JS-->
+  <script src="./../public/js/main.js"></script>
+  <script src="./../public/js/api.js"></script>
+{% endblock %}
+<!-- end document-->
+</body>
+</html>

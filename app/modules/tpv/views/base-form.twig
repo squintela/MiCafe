@@ -1,0 +1,33 @@
+{% extends "@tpv/base.twig" %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        {% block header %}
+        {% endblock %}
+      </div>
+      <div class="col-md-5">
+        {% block ctrls %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            {% block header_form %} {% endblock %}
+          </div>
+          <div class="card-body card-block">
+            {% block root %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

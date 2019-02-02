@@ -1,0 +1,58 @@
+<div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group mr-2" role="group" aria-label="Add group">
+
+    {% if href_add_url %}
+      <a class="btn btn-danger" role="button" href="{{ href_add_url }}{{ href_add_url_value }}">
+        <i class="fa fa-plus"></i>
+      </a>
+    {% endif %}
+
+    {% if href_add %}
+      <a class="btn btn-danger" role="button" href="{{ href_add }}?option=add">
+        <i class="fa fa-plus"></i>
+      </a>
+    {% endif %}
+
+    {% if href_edit %}
+      <a class="btn btn-info" role="button" href="{{ href_edit }}">
+        <i class="fa fa-pencil-alt"></i>
+      </a>
+    {% endif %}
+
+  </div>
+
+  <div class="btn-group mr-2" role="group" aria-label="View group">
+    {% if href_list_url %}
+      <a class="btn btn-warning" role="button" href="{{ href_list_url }}{{ href_list_url_value }}">
+        <i class="fa fa-th-list"></i>
+      </a>
+    {% endif %}
+
+    {% if href_list %}
+      <a class="btn btn-warning" role="button" href="{{ href_list }}?option=list">
+        <i class="fa fa-th-list"></i>
+      </a>
+    {% endif %}
+
+    {% if href_board %}
+      <a class="btn btn-success" role="button" href="{{ href_board }}">
+        <i class="fa fa-th-large"></i>
+      </a>
+    {% endif %}
+
+    {% if href_find %}
+      <a class="btn btn-success" role="button" href="{{ href_find }}{{href_find_value }}">
+        <i class="fa fa-search"></i>
+      </a>
+    {% endif %}
+
+  </div>
+
+  <div class="btn-group mr-2" role="group" aria-label="Form group">
+    {% if form_id %}
+      <button class="btn btn-primary" role="button" form="{{ form_id }}" type="submit">
+        <i class="fa fa-save"></i>
+      </button>
+    {% endif %}
+  </div>
+</div>

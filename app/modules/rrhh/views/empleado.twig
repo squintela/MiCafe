@@ -1,0 +1,98 @@
+{% extends "@admin/base-form.twig" %}
+
+{% block title %}
+  Gestionar empleado
+{% endblock %}
+
+{% block ctrls %}
+  {% include "@admin/controls/buttons.twig" with {form_id:"frm-empleado", href_add:"empleado.php", href_list:"empleado.php"} %}
+{% endblock %}
+
+{% block header_form %}
+    <strong>Gestionar </strong> empleado
+{% endblock %}
+
+{% block root %}
+  <form id="frm-empleado" action="./empleado.php" method="post" class="">
+    <input type="text" id="id" name="id" class="form-control" value="{{ empleado.getId() }}" hidden>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="nombres" class=" form-control-label">Nombres</label>
+          <input type="text" id="nombres" name="nombres" placeholder="Enter nombres.." class="form-control" value="{{ empleado.getNombres() }}" required>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="apellidos" class=" form-control-label">Apellidos</label>
+          <input type="text" id="apellidos" name="apellidos" placeholder="Enter apellidos.." class="form-control" value="{{ empleado.getApellidos() }}" required>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="ci" class=" form-control-label">CI</label>
+          <input type="text" id="ci" name="ci" placeholder="Enter carnet de identidad.." class="form-control" value="{{ empleado.getCi() }}" required>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="genero">Genero</label>
+          <select class="form-control" id="genero" name="genero">
+            {% for genero in generos %}
+              <option
+                  {% if empleado.getGenero() == genero.id %}
+                    selected="true"
+                  {% endif %}
+                  value="{{ genero.id }}">{{ genero.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="telefono" class=" form-control-label">Telefono</label>
+          <input type="text" id="telefono" name="telefono" placeholder="Enter telefono.." class="form-control" value="{{ empleado.getTelefono() }}" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="cargo" class=" form-control-label">Cargo</label>
+          <select class="form-control" id="cargo" name="cargo">
+            {% for cargo in cargos %}
+              <option
+                  {% if empleado.getCargo() == cargo.id %}
+                    selected="true"
+                  {% endif %}
+                  value="{{ cargo.id }}">{{ cargo.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="id_usuario" class=" form-control-label">Usuario</label>
+          <select class="form-control" id="id_usuario" name="id_usuario">
+            {% for usuario in usuarios %}
+              <option
+                  {% if empleado.getIdUsuario() == usuario.id %}
+                    selected="true"
+                  {% endif %}
+                  value="{{ usuario.id }}">{{ usuario.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    {% if errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ errors }}
+      </div>
+    {% endif %}
+  </form>
+{% endblock %}
+

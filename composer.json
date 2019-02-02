@@ -1,0 +1,19 @@
+{
+  "name": "cafeteria/micafe",
+  "description": "Sistema de venta, inventario y produccion",
+  "require": {
+    "adodb/adodb-php": "^5.20",
+    "twig/twig": "^2.6"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Juan Vladimir",
+      "email": "juanvladimir13@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+    }
+  }
+}

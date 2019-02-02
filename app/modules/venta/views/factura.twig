@@ -1,0 +1,77 @@
+{% extends "@admin/base-form.twig" %}
+
+{% block title %}
+  Gestionar factura
+{% endblock %}
+
+{% block ctrls %}
+  {% include "@admin/controls/buttons.twig" with {form_id:"frm-factura", href_list:"factura.php"} %}
+{% endblock %}
+
+{% block header_form %}
+  <strong>Gestionar </strong>factura
+{% endblock %}
+
+{% block root %}
+  <form action="./factura.php" method="post" id="frm-factura">
+    <input type="text" id="id" name="id" value="{{ factura.getId() }}" hidden>
+    <input type="text" id="id_pedido" name="id_pedido" value="{{ factura.getIdPedido() }}" hidden>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Pedido: <small>{{ pedido.getCodigo() }} </small> {{ pedido.getFecha() }}</h3>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="codigo" class=" form-control-label">Codigo</label>
+          <input type="text" id="codigo" name="codigo" class="form-control" value="{{ factura.getCodigo() }}" readonly>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="fecha" class=" form-control-label">Fecha</label>
+          <input type="text" id="fecha" name="fecha" class="form-control" value="{{ factura.getFecha() | default("now"|date('Y/m/d H:i:s'))  }}" readonly>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="monto" class=" form-control-label">Monto</label>
+          <input type="text" id="monto" name="monto" class="form-control" value="{{ factura.getMonto() }}" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="nit" class=" form-control-label">NIT</label>
+          <input type="text" id="nit" name="nit" placeholder="Enter nit.." class="form-control" value="{{ factura.getNit() }}">
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="cliente" class=" form-control-label">Cliente</label>
+          <input type="text" id="cliente" name="cliente" placeholder="Enter cliente.." class="form-control" value="{{ factura.getCliente() }}">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="razon" class=" form-control-label">Razon</label>
+          <input type="text" id="razon" name="razon" placeholder="Enter razon.." class="form-control" value="{{ factura.getRazon() | default('Consumo de productos en micafe') }}">
+        </div>
+      </div>
+    </div>
+
+    {% if errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ errors }}
+      </div>
+    {% endif %}
+  </form>
+{% endblock %}
+

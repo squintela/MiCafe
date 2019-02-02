@@ -1,0 +1,39 @@
+{% extends "@admin/base-form.twig" %}
+
+{% block title %}
+  Gestionar receta
+{% endblock %}
+
+{% block ctrls %}
+  {% include "@admin/controls/buttons.twig" with {form_id:"frm-receta", href_add:"receta.php", href_list:"receta.php"} %}
+{% endblock %}
+
+{% block header_form %}
+  <strong>Gestionar </strong>receta
+{% endblock %}
+
+{% block root %}
+  <form action="./receta.php" method="post" class="" id="frm-receta">
+    <input type="text" id="id" name="id" class="form-control" value="{{ receta.getId() }}" hidden>
+
+    <div class="row">
+      <label for="codigo" class=" form-control-label">Codigo</label>
+      <input type="text" name="codigo" class="form-control" value="{{ receta.getCodigo() }}" required>
+
+      <label for="nombre" class=" form-control-label">Nombre</label>
+      <input type="text" name="nombre" class="form-control" value="{{ receta.getNombre() }}" required>
+
+      <label for="cantidad" class=" form-control-label">Cantidad</label>
+      <input type="text" name="cantidad" class="form-control" value="{{ receta.getCantidad() }}" required>
+
+      <label for="preparacion" class=" form-control-label">Preparacion</label>
+      <input type="text" name="preparacion" class="form-control" value="{{ receta.getPreparacion() }}" required>
+    </div>
+    {% if errors %}
+      <div class="alert alert-danger" role="alert">
+				{{ errors }}
+			</div>
+    {% endif %}
+  </form>
+{% endblock %}
+

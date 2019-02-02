@@ -1,0 +1,74 @@
+{% extends "@admin/base-form.twig" %}
+
+{% block title %}
+  Gestionar entrada de producto
+{% endblock %}
+
+{% block ctrls %}
+  {% include "@admin/controls/buttons.twig" with {form_id:"frm-entrada", href_add:"entrada.php", href_list:"entrada.php"} %}
+{% endblock %}
+
+{% block header_form %}
+  <strong>Gestionar </strong>entrada de producto
+{% endblock %}
+
+{% block root %}
+  <form action="./entrada.php" method="post" class="" id="frm-entrada">
+    <input type="text" id="id" name="id" class="form-control" value="{{ entrada.getId() }}" hidden>
+    <div class="row">
+      <div class="col-md-7">
+        <div class="form-group">
+          <label for="codigo" class=" form-control-label">Codigo</label>
+          <input type="text" id="codigo" name="codigo" class="form-control" value="{{ entrada.getCodigo() }}" readonly>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="fecha" class=" form-control-label">Fecha</label>
+          <input type="text" id="fecha" name="fecha" class="form-control" value="{{ entrada.getFecha() | default("now"|date('Y/m/d H:i:s')) }}" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7">
+        <div class="form-group">
+          <label for="id_empleado">Empleado</label>
+          <select class="form-control" id="id_empleado" name="id_empleado">
+            {% for empleado in empleados %}
+              <option
+                  {% if entrada.getIdEmpleado() == empleado.id %}
+                    selected="true"
+                  {% endif %}
+                  value="{{ empleado.id }}">{{ empleado.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    {% if errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ errors }}
+      </div>
+    {% endif %}
+    <div class="row">
+      <div class="col-md-4">
+        {% if status %}
+          <p>Add Producto</p>
+          <a class="btn btn-success" role="button" href="entradaproducto.php?option=add&codigo={{ entrada.getCodigo() }}">
+            <i class="fa fa-plus"></i>
+          </a>
+        {% endif %}
+      </div>
+      <div class="col-md-4">
+        {% if status %}
+          <p>Lista Productos</p>
+          <a class="btn btn-secondary" role="button" href="entradaproducto.php?option=list&codigo={{ entrada.getCodigo() }}">
+            <i class="fa fa-address-book"></i>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </form>
+{% endblock %}
+

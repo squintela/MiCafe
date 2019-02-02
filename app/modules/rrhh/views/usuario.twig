@@ -1,0 +1,41 @@
+{% extends "@admin/base-form.twig" %}
+
+{% block title %}
+  Gestionar usuario
+{% endblock %}
+
+{% block ctrls %}
+  {% include "@admin/controls/buttons.twig" with {form_id:"frm-usuario", href_add:"usuario.php", href_list:"usuario.php"} %}
+{% endblock %}
+
+{% block header_form %}
+  <strong>Gestionar </strong>usuario
+{% endblock %}
+
+{% block root %}
+  <form action="./usuario.php" method="post" class="" id="frm-usuario">
+    <input type="text" id="id" name="id" class="form-control" value="{{ usuario.getId() }}" hidden>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="username" class="form-control-label">Username</label>
+          <input type="text" id="username" name="username" placeholder="Enter username.." class="form-control" value="{{ usuario.getUsername() }}" required>
+        </div>
+        <div class="form-group">
+          <label for="email" class=" form-control-label">Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter Email.." class="form-control" value="{{ usuario.getEmail() }}" required>
+        </div>
+        <div class="form-group">
+          <label for="password" class=" form-control-label">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter Password.." class="form-control" required>
+        </div>
+      </div>
+    </div>
+    {% if errors %}
+      <div class="alert alert-danger" role="alert">
+				{{ errors }}
+			</div>
+    {% endif %}
+  </form>
+{% endblock %}
+

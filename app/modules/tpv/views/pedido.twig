@@ -1,0 +1,116 @@
+{% extends "@tpv/base-form.twig" %}
+
+{% block title %}
+  Gestionar pedido
+{% endblock %}
+
+{% block ctrls %}
+  {% include "@admin/controls/buttons.twig" with {form_id:"frm-pedido", href_add_url:"tpv.php?option=addpedido&id_cliente=", href_add_url_value: cliente.getId(), href_list_url:"tpv.php?option=listpedido&id_cliente=", href_list_url_value: cliente.getId() } %}
+{% endblock %}
+
+{% block header_form %}
+  <strong>Gestionar </strong>pedido
+{% endblock %}
+
+{% block root %}
+  <form action="./tpv.php" method="post" class="" id="frm-pedido">
+    <input type="text" id="id" name="id" value="{{ pedido.getId() }}" hidden>
+    <input type="text" id="id_empleado" name="id_empleado" value="{{ pedido.getIdEmpleado() }}" hidden>
+    <input type="text" id="id_cliente" name="id_cliente" value="{{ cliente.getId() }}" hidden>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="codigo" class=" form-control-label">Codigo</label>
+          <input type="text" id="codigo" name="codigo" class="form-control" value="{{ pedido.getCodigo() }}" readonly>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="fecha" class=" form-control-label">Fecha</label>
+          <input type="text" id="fecha" name="fecha" class="form-control" value="{{ pedido.getFecha() | default("now"|date('Y/m/d H:i:s')) }}" readonly>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="monto" class=" form-control-label">Monto</label>
+          <input type="text" id="monto" name="monto" class="form-control" value="{{ pedido.getMonto() }}" readonly>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="tipo_pago">Tipo de pago</label>
+          <select class="form-control" id="tipo_pago" name="tipo_pago">
+            {% for tipo_pago in tipo_pagos %}
+              <option
+                  {% if pedido.getTipoPago() == tipo_pago.id %}
+                    selected="true"
+                  {% endif %}
+                  value="{{ tipo_pago.id }}">{{ tipo_pago.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="estado">Estado</label>
+          <select class="form-control" id="estado" name="estado" {% if pedido.getEstado() == "Pagado" %} disabled {% endif %}>
+            {% for estado in estados %}
+              <option
+                  {% if pedido.getEstado() == estado.id %}
+                    selected="true"
+                  {% endif %}
+                  value="{{ estado.id }}">{{ estado.name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="id_cliente">Cliente</label>
+          <input type="text" id="cliente" name="cliente" class="form-control" value="{{ cliente.getNit() }}  |  {{ cliente.getNombres() }} {{ cliente.getApellidos() }}" readonly>
+        </div>
+      </div>
+    </div>
+    {% if errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ errors }}
+      </div>
+    {% endif %}
+
+    <div class="row">
+      <div class="col-md-4">
+        {% if status and pedido.getEstado != 'Pagado' %}
+          <p>Add orden</p>
+          <a class="btn btn-success" role="button" href="tpv.php?option=addorden&codigo={{ pedido.getCodigo() }}">
+            <i class="fa fa-shopping-cart"></i>
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="col-md-4">
+        {% if status %}
+          <p>Comandas</p>
+          <a class="btn btn-secondary" role="button" href="tpv.php?option=listorden&codigo={{ pedido.getCodigo() }}">
+            <i class="fa fa-address-book"></i>
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="col-md-4">
+          <p>Salir</p>
+          <a class="btn btn-primary" role="button" href="tpv.php?option=logout">
+            <i class="fa fa-desktop"></i>
+          </a>
+      </div>
+    </div>
+  </form>
+{% endblock %}

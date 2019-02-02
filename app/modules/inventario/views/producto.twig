@@ -1,0 +1,88 @@
+{% extends "@admin/base-form.twig" %}
+
+{% block title %}
+  Registrar Producto
+{% endblock %}
+
+{% block ctrls %}
+  {% include "@admin/controls/buttons.twig" with {form_id:"frm-producto", href_add:"producto.php", href_list:"producto.php"} %}
+{% endblock %}
+
+{% block header_form %}
+  <strong>Registrar </strong>producto
+{% endblock %}
+
+{% block root %}
+  <form action="./producto.php" method="post" id="frm-producto">
+    <input type="text" id="id" name="id" class="form-control" value="{{ producto.getId() }}" hidden>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="codigo" class="form-control-label">Codigo</label>
+          <input type="text" id="codigo" name="codigo" placeholder="Enter codigo.." class="form-control" value="{{ producto.getCodigo() | default (codigo) }}" readonly>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="form-group">
+          <label for="nombre" class="form-control-label">Nombre</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Enter nombre.." class="form-control" value="{{ producto.getNombre() }}" required>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="precio" class="form-control-label">Precio .Bs</label>
+          <input type="text" id="precio" name="precio" placeholder="Enter precio" class="form-control" value="{{ producto.getPrecio() }}" required>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="marca" class="form-control-label">Marca</label>
+          <input type="text" id="marca" name="marca" placeholder="Enter marca.." class="form-control" value="{{ producto.getMarca() }}" required>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="tipo">Tipo</label>
+          <select class="form-control" id="tipo" name="tipo" required>
+            {% for tipo in tipos %}
+              <option
+                  {% if producto.getTipo() == tipo.id %}
+                    selected="true"
+                  {% endif %}
+                  value="{{ tipo.id }}">{{ tipo.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="volumen" class="form-control-label">Volumen</label>
+          <input type="text" id="volumen" name="volumen" class="form-control" value="{{ producto.getVolumen() }}" required>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="unidad">Unidad</label>
+          <select class="form-control" id="unidad" name="unidad" required>
+            {% for unidad in unidades %}
+              <option
+                  {% if producto.getUnidad() == unidad.id %}
+                    selected="true"
+                  {% endif %}
+                  value="{{ unidad.id }}">{{ unidad.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    {% if errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ errors }}
+      </div>
+    {% endif %}
+  </form>
+{% endblock %}

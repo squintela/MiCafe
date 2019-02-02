@@ -1,0 +1,54 @@
+{% extends "@admin/base-form.twig" %}
+
+{% block title %}
+  Gestionar cliente
+{% endblock %}
+
+{% block ctrls %}
+  {% include "@admin/controls/buttons.twig" with {form_id:"frm-cliente", href_add:"cliente.php", href_list:"cliente.php"} %}
+{% endblock %}
+
+{% block header_form %}
+    <strong>Gestionar </strong> cliente
+{% endblock %}
+
+{% block root %}
+  <form id="frm-cliente" action="./cliente.php" method="post" class="">
+    <input type="text" id="id" name="id" class="form-control" value="{{ cliente.getId() }}" hidden>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="nombres" class=" form-control-label">Nombres</label>
+          <input type="text" id="nombres" name="nombres" placeholder="Enter nombres.." class="form-control" value="{{ cliente.getNombres() }}" required>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="apellidos" class=" form-control-label">Apellidos</label>
+          <input type="text" id="apellidos" name="apellidos" placeholder="Enter apellidos.." class="form-control" value="{{ cliente.getApellidos() }}" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="celular" class=" form-control-label">Celular</label>
+          <input type="text" id="celular" name="celular" placeholder="Enter celular.." class="form-control" value="{{ cliente.getCelular() }}" required>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="nit" class=" form-control-label">NIT</label>
+          <input type="text" id="nit" name="nit" placeholder="Enter nit.." class="form-control" value="{{ cliente.getNit() }}">
+        </div>
+      </div>
+    </div>
+    {% if errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ errors }}
+      </div>
+    {% endif %}
+  </form>
+{% endblock %}
+
